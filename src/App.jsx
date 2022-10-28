@@ -6,32 +6,43 @@ import  following  from "../src/assets/following.svg";
 import  location  from "../src/assets/location.svg";
 import  repository  from "../src/assets/repository.svg";
 import avatar from "../src/assets/img-perfil.png";
+import { useEffect, useState } from 'react';
+import React from 'react';
 
 
 
-//import imgperfil from "../src/assets/img-perfil.png";
-//import { FiCircle } from 'react-icons/fi';
 
 function App() {
+
+  const [repositories, setRepositories] = useState([])
+
+  useEffect(() => {
+    fetch('https://api.github.com/users/EduExtreme/repos')
+      .then(response => response.json())
+      .then(data => {
+        setRepositories(data);
+      })
+  }, [])
+
+
   return (
     <>
       <GlobalStyle />
       <Container>
         <Card>
-
-            <div className='repoName'>Edu
-          
-              <div className='logo'>  
-              <img className = 'img' src={logo}/> 
-              </div> 
-            
-            
+          <div className="card-header">
+            <div className='logo'>
+              <img className = 'img' src={logo}/>
             </div>
+
+            <p>EduExtreme</p> 
+          </div>
           
           <Profile>
             <img src={avatar}/>
           
           </Profile>
+
           <Stats>
 
             <div className='description'>
@@ -64,8 +75,7 @@ function App() {
             ROCKETCARD
             
             
-          </Footer>
-         
+          </Footer>     
         </Card>
         </Container>  
     </>
